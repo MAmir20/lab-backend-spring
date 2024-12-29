@@ -1,14 +1,20 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.bean.PublicationBean;
 import com.example.demo.entity.EnseignantChercheur;
 import com.example.demo.entity.Etudiant;
 import com.example.demo.entity.Membre;
+import com.example.demo.entity.Membre_Pub_Id;
+import com.example.demo.entity.Membre_Publication;
+import com.example.demo.proxy.PublicationProxyService;
 import com.example.demo.repository.EnseignantRepository;
 import com.example.demo.repository.EtudiantRepository;
+import com.example.demo.repository.MembrePubRepository;
 import com.example.demo.repository.MembreRepository;
 
 import lombok.AllArgsConstructor;
@@ -19,6 +25,8 @@ public class MembreImpl implements IMembreService {
 	MembreRepository membreRepository;
 	EtudiantRepository etudiantRepository;
 	EnseignantRepository enseignantRepository;
+	MembrePubRepository membrePubRepository;
+	PublicationProxyService publicationProxyService;
 
 	public Membre addMembre(Membre m) {
 		membreRepository.save(m);
@@ -65,17 +73,36 @@ public class MembreImpl implements IMembreService {
 	public List<EnseignantChercheur> findByEtablissement(String etablissement) {
 		return enseignantRepository.findByEtablissement(etablissement);
 	}
-	
+
 	public String affecterEncadrant(Long idEtd, Long idEns) {
-		Etudiant etd = (Etudiant)this.findMembre(idEtd);
-		EnseignantChercheur encadrant = (EnseignantChercheur)this.findMembre(idEns);
+		Etudiant etd = (Etudiant) this.findMembre(idEtd);
+		EnseignantChercheur encadrant = (EnseignantChercheur) this.findMembre(idEns);
 		etd.setEncadrant(encadrant);
 		this.updateMembre(etd);
-		return "Encadrant "+encadrant.getPrenom()+" "+encadrant.getNom()+" affecté avec succés à l'étudiant "+etd.getPrenom()+" "+etd.getNom();
+		return "Encadrant " + encadrant.getPrenom() + " " + encadrant.getNom() + " affecté avec succés à l'étudiant "
+				+ etd.getPrenom() + " " + etd.getNom();
 	}
-	
-	public List<Etudiant> afficherEtudiantsEncadres(Long idEns){
+
+	public List<Etudiant> afficherEtudiantsEncadres(Long idEns) {
 		EnseignantChercheur ens = enseignantRepository.findById(idEns).get();
 		return etudiantRepository.findByEncadrant(ens);
+	}
+
+	public void affecterauteurTopublication(Long idauteur, Long idpub) {
+		Membre mbr = membreRepository.findById(idauteur).get();
+		Membre_Publication mbs = new Membre_Publication();
+		mbs.setAuteur(mbr);
+		mbs.setId(new Membre_Pub_Id(idpub, idauteur));
+		membrePubRepository.save(mbs);
+	}
+
+	public List<PublicationBean> findPublicationparauteur(Long idauteur) {
+		List<PublicationBean> pubs = new ArrayList<PublicationBean>();
+		List<Membre_Publication> idpubs = membrePubRepository.findpubId(idauteur);
+		idpubs.forEach(s -> {
+			System.out.println(s);
+			pubs.add(publicationProxyService.findOnePublicationById(s.getId().getPublication_id()));
+		});
+		return pubs;
 	}
 }

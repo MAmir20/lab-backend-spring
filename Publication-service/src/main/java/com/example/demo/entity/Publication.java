@@ -17,13 +17,14 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter @Builder
+@Data @Builder
 @NoArgsConstructor @AllArgsConstructor
 public class Publication implements Serializable {
 

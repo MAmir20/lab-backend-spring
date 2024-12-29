@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 import com.example.demo.entity.EnseignantChercheur;
 import com.example.demo.entity.Etudiant;
@@ -19,6 +20,7 @@ import com.example.demo.service.IMembreService;
 
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableFeignClients
 public class MembreServiceApplication implements CommandLineRunner {
 	@Autowired
 	MembreRepository membreRepository;

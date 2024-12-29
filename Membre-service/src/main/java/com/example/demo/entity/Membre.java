@@ -1,8 +1,10 @@
 package com.example.demo.entity;
 
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
+
+import com.example.demo.bean.PublicationBean;
 
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.DiscriminatorColumn;
@@ -15,6 +17,7 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -44,5 +47,8 @@ public abstract class Membre implements Serializable {
 	private String email;
 	@NonNull
 	private String password;
+	@Transient
+	Collection<PublicationBean> pubs;
+	//plus génération des getters et setters
 
 }
