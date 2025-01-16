@@ -42,7 +42,7 @@ public abstract class Membre implements Serializable {
 	private String name;
 	@NonNull @Temporal(TemporalType.DATE)
 	private Date birthDate;
-	private byte[] pic;
+	private String pic;
 	@NonNull
 	private String cv;
 	@NonNull

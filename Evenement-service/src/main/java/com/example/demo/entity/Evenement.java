@@ -32,6 +32,8 @@ public class Evenement implements Serializable {
 	@NonNull
 	private String title;
 	@NonNull @Temporal(TemporalType.DATE)
+	private Date dateDebut;
+	@NonNull @Temporal(TemporalType.DATE)
 	private Date dateFin;
 	@NonNull
 	private String lieu;

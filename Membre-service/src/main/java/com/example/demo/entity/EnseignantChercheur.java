@@ -21,7 +21,7 @@ public class EnseignantChercheur extends Membre {
 	@NonNull
 	private String establishment;
 	@Builder
-	public EnseignantChercheur(Long id, String cin, String name, Date birthDate, byte[] pic,
+	public EnseignantChercheur(Long id, String cin, String name, Date birthDate, String pic,
 			String cv, String email, String password, String grade, String establishment) {
 		super(id, cin, name, birthDate, pic, cv, email, password, "Professor", null, null, null);
 		this.grade = grade;

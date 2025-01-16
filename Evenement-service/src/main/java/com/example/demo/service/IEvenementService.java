@@ -15,7 +15,9 @@ public interface IEvenementService {
 	
 	//Filtrage par propriété
 	public Evenement findByTitre(String titre);
-	public List<Evenement> findByDate(Date date);
+	public List<Evenement> findByDateFin(Date date);
+	public List<Evenement> findByDateDebut(Date date);
+
 	public List<Evenement> findByLieu(String lieu);
 	
 }
