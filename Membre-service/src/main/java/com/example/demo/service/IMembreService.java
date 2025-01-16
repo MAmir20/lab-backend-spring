@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import com.example.demo.bean.OutilBean;
 import com.example.demo.bean.PublicationBean;
 import com.example.demo.entity.EnseignantChercheur;
 import com.example.demo.entity.Etudiant;
@@ -34,5 +35,6 @@ public interface IMembreService {
 	public List<Etudiant> afficherEtudiantsEncadres(Long idEns);
 	
 	public void affecterauteurTopublication(Long idauteur, Long idpub);
-	public List<PublicationBean> findPublicationparauteur (Long idauteur);
+	public List<PublicationBean> findAllPublicationparauteur (Long idauteur);
+	
 }

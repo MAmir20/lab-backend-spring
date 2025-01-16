@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Membre_Pub_Id implements Serializable {
-	private Long publication_id;
+public class Membre_Outil_Id implements Serializable {
+	private Long outil_id;
 	private Long membre_id;
 }
