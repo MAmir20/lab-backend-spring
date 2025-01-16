@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
+import com.example.demo.bean.EventBean;
 import com.example.demo.bean.OutilBean;
 import com.example.demo.bean.PublicationBean;
 
@@ -56,6 +57,8 @@ public abstract class Membre implements Serializable {
 	Collection<PublicationBean> pubs;
 	@Transient
 	Collection<OutilBean> outils;
+	@Transient
+	Collection<EventBean> events;
 	//plus génération des getters et setters
 	@PostLoad
     private void populateType() {

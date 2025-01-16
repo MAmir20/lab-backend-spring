@@ -32,7 +32,7 @@ public class Etudiant extends Membre {
 	@Builder
 	public Etudiant(Long id, String cin, String nom, String prenom, Date dateNaissance, byte[] photo, String cv,
 			String email, String password, Date dateInscription, String diplome, EnseignantChercheur encadrant) {
-		super(id, cin, nom, prenom, dateNaissance, photo, cv, email, password, "etd", null, null);
+		super(id, cin, nom, prenom, dateNaissance, photo, cv, email, password, "etd", null, null, null);
 		this.dateInscription = dateInscription;
 		this.diplome = diplome;
 		this.encadrant = encadrant;
