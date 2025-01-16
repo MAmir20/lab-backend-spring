@@ -29,7 +29,7 @@ import lombok.Setter;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name= "type_mbr", discriminatorType = DiscriminatorType.STRING,length = 3)
+@DiscriminatorColumn(name= "type_mbr", discriminatorType = DiscriminatorType.STRING,length = 10)
 @Getter @Setter
 @RequiredArgsConstructor @AllArgsConstructor
 public abstract class Membre implements Serializable {
@@ -39,12 +39,10 @@ public abstract class Membre implements Serializable {
 	@NonNull
 	private String cin;
 	@NonNull
-	private String nom;
-	@NonNull
-	private String prenom;
+	private String name;
 	@NonNull @Temporal(TemporalType.DATE)
-	private Date dateNaissance;
-	private byte[] photo;
+	private Date birthDate;
+	private byte[] pic;
 	@NonNull
 	private String cv;
 	@NonNull

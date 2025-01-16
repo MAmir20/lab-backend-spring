@@ -10,7 +10,7 @@ import com.example.demo.entity.Etudiant;
 
 @RepositoryRestController
 public interface EtudiantRepository extends JpaRepository<Etudiant, Long> {
-	List<Etudiant>findByDiplome(String diplome);
-	List<Etudiant>findByDiplomeOrderByDateInscriptionDesc(String diplome);
+	List<Etudiant>findByDiploma(String diploma);
+	List<Etudiant>findByDiplomaOrderByDateInscriptionDesc(String diplome);
 	List<Etudiant>findByEncadrant(EnseignantChercheur encadrant);
 }

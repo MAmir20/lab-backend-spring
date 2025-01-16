@@ -8,5 +8,5 @@ import com.example.demo.entity.EnseignantChercheur;
 
 public interface EnseignantRepository extends JpaRepository<EnseignantChercheur, Long>{
 	List<EnseignantChercheur>findByGrade(String grade);
-	List<EnseignantChercheur>findByEtablissement(String etablissement);
+	List<EnseignantChercheur>findByEstablishment(String establishment);
 }

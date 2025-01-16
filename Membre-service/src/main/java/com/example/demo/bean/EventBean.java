@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class EventBean {
 	private Long id;
-	private String titre;
-	private Date date;
+	private String title;
+	private Date dateFin;
 	private String lieu;
 }

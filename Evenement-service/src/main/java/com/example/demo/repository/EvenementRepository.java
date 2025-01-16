@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.demo.entity.Evenement;
 
 public interface EvenementRepository extends JpaRepository<Evenement, Long>{
-	Evenement findByTitre(String titre);
+	Evenement findByTitle(String titre);
 	List<Evenement>findByLieu(String lieu);
 	List<Evenement>findByDate(Date date);
 }

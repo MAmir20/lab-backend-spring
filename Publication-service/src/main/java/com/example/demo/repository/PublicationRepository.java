@@ -8,7 +8,7 @@ import com.example.demo.entity.Publication;
 
 public interface PublicationRepository extends JpaRepository<Publication, Long>{
 	Publication findByType(String type);
-	List<Publication>findByTitreStartingWith(String caractere);
+	List<Publication>findByTitleStartingWith(String caractere);
 	List<Publication>findByLien(String lien);
 	List<Publication>findBySourcepdf(String sourcepdf);
 }

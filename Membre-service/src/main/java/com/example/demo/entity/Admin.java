@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity @DiscriminatorValue("admin")
+@Entity @DiscriminatorValue("Admin")
 @NoArgsConstructor
 @Getter @Setter
 public class Admin extends Membre{

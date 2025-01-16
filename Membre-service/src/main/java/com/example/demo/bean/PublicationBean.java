@@ -8,7 +8,7 @@ import lombok.Data;
 public class PublicationBean {
 	private Long id;
 	private String type;
-	private String titre;
+	private String title;
 	private String lien;
 	private Date date;
 	private String sourcepdf;

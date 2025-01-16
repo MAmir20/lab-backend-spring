@@ -31,13 +31,13 @@ public class MembreOutilController {
 	}
 	
 	@GetMapping(value = "/membres/{id}/outils")
-	public List<OutilBean> findOutils(@PathVariable Long idauteur) {
-		return membreOutilService.findAllOutilparauteur(idauteur);
+	public List<OutilBean> findOutils(@PathVariable Long id) {
+		return membreOutilService.findAllOutilparauteur(id);
 	}
 	
 	@PostMapping(value = "/membres/{id}/outils")
-	public List<OutilBean> createOutil(@PathVariable Long idMember, @RequestBody OutilBean outil){
-		return membreOutilService.createOutil(idMember, outil);
+	public List<OutilBean> createOutil(@PathVariable Long id, @RequestBody OutilBean outil){
+		return membreOutilService.createOutil(id, outil);
 	}
 	
 	@DeleteMapping(value = "/membres/{m_id}/outils/{o_id}")

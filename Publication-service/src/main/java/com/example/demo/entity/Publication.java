@@ -33,7 +33,7 @@ public class Publication implements Serializable {
 	@NonNull
 	private String type;
 	@NonNull
-	private String titre;
+	private String title;
 	@NonNull
 	private String lien;
 	@NonNull @Temporal(TemporalType.DATE)

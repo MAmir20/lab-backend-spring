@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-@Entity @DiscriminatorValue("ens")
+@Entity @DiscriminatorValue("Professor")
 @NoArgsConstructor @AllArgsConstructor
 public class EnseignantChercheur extends Membre {
 	/**
@@ -19,13 +19,13 @@ public class EnseignantChercheur extends Membre {
 	@NonNull
 	private String grade;
 	@NonNull
-	private String etablissement;
+	private String establishment;
 	@Builder
-	public EnseignantChercheur(Long id, String cin, String nom, String prenom, Date dateNaissance, byte[] photo,
-			String cv, String email, String password, String grade, String etablissement) {
-		super(id, cin, nom, prenom, dateNaissance, photo, cv, email, password, "ens", null, null, null);
+	public EnseignantChercheur(Long id, String cin, String name, Date birthDate, byte[] pic,
+			String cv, String email, String password, String grade, String establishment) {
+		super(id, cin, name, birthDate, pic, cv, email, password, "Professor", null, null, null);
 		this.grade = grade;
-		this.etablissement = etablissement;
+		this.establishment = establishment;
 	}
 	
 	

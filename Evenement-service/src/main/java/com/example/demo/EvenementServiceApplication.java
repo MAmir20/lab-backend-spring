@@ -25,8 +25,8 @@ public class EvenementServiceApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		Evenement evt = Evenement.builder()
-				.titre("test")
-				.date(new Date())
+				.title("test")
+				.dateFin(new Date())
 				.lieu("Sfax")
 				.build();
 		

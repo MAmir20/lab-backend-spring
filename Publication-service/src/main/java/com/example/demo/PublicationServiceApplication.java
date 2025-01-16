@@ -30,7 +30,7 @@ public class PublicationServiceApplication implements CommandLineRunner {
 		configuration.exposeIdsFor(Publication.class);
 		Publication pub1 = Publication.builder()
 				.type("article")
-				.titre("test")
+				.title("test")
 				.lien("www.example.com")
 				.date(new Date())
 				.sourcepdf("file.pdf")

@@ -38,7 +38,7 @@ public class EvenementImpl implements IEvenementService {
 	}
 
 	public Evenement findByTitre(String titre) {
-		return evenementRepository.findByTitre(titre);
+		return evenementRepository.findByTitle(titre);
 	}
 
 	public List<Evenement> findByDate(Date date) {

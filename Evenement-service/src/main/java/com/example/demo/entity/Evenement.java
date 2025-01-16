@@ -30,9 +30,9 @@ public class Evenement implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NonNull
-	private String titre;
+	private String title;
 	@NonNull @Temporal(TemporalType.DATE)
-	private Date date;
+	private Date dateFin;
 	@NonNull
 	private String lieu;
 }

@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -49,6 +51,27 @@ public class MembreImpl implements IMembreService {
 	public Membre updateMembre(Membre m) {
 		return membreRepository.saveAndFlush(m);
 	}
+	
+	@Override
+	public Membre patchMembre(Long id, Map<String, Object> updates) {
+	    // Find the member by ID
+	    Membre membre = membreRepository.findById(id).orElseThrow(() -> new RuntimeException("Member not found"));
+
+	    // Iterate through the updates and apply them
+	    updates.forEach((key, value) -> {
+	        try {
+	            // Use reflection to get the field and make it accessible
+	            Field field = Membre.class.getDeclaredField(key);
+	            field.setAccessible(true);
+	            field.set(membre, value);
+	        } catch (NoSuchFieldException | IllegalAccessException e) {
+	            throw new RuntimeException("Failed to update field: " + key, e);
+	        }
+	    });
+
+	    // Save the updated member entity
+	    return membreRepository.save(membre);
+	}
 
 	public Membre findMembre(Long id) {
 		Membre m = (Membre) membreRepository.findById(id).get();
@@ -67,20 +90,20 @@ public class MembreImpl implements IMembreService {
 		return membreRepository.findByEmail(email);
 	}
 
-	public List<Membre> findByNom(String nom) {
-		return membreRepository.findByNom(nom);
+	public List<Membre> findByName(String name) {
+		return membreRepository.findByName(name);
 	}
 
-	public List<Etudiant> findByDiplome(String diplome) {
-		return etudiantRepository.findByDiplome(diplome);
+	public List<Etudiant> findByDiploma(String diploma) {
+		return etudiantRepository.findByDiploma(diploma);
 	}
 
 	public List<EnseignantChercheur> findByGrade(String grade) {
 		return enseignantRepository.findByGrade(grade);
 	}
 
-	public List<EnseignantChercheur> findByEtablissement(String etablissement) {
-		return enseignantRepository.findByEtablissement(etablissement);
+	public List<EnseignantChercheur> findByEstablishment(String establishment) {
+		return enseignantRepository.findByEstablishment(establishment);
 	}
 
 	public String affecterEncadrant(Long idEtd, Long idEns) {
@@ -88,8 +111,8 @@ public class MembreImpl implements IMembreService {
 		EnseignantChercheur encadrant = (EnseignantChercheur) this.findMembre(idEns);
 		etd.setEncadrant(encadrant);
 		this.updateMembre(etd);
-		return "Encadrant " + encadrant.getPrenom() + " " + encadrant.getNom() + " affecté avec succés à l'étudiant "
-				+ etd.getPrenom() + " " + etd.getNom();
+		return "Encadrant " + encadrant.getName() + " affecté avec succés à l'étudiant "
+				+ etd.getName();
 	}
 
 	public List<Etudiant> afficherEtudiantsEncadres(Long idEns) {

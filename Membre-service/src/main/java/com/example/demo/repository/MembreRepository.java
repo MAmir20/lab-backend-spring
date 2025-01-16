@@ -10,9 +10,9 @@ import com.example.demo.entity.Membre;
 
 public interface MembreRepository extends JpaRepository<Membre, Long>{
 	Membre findByCin(String cin);
-	List<Membre>findByNomStartingWith(String caractere);
+	List<Membre>findByNameStartingWith(String caractere);
 	Membre findByEmail(String email);
-	List<Membre> findByNom(String nom);
+	List<Membre> findByName(String name);
 	@Query(value = "SELECT type_mbr FROM Membre WHERE id = :id", nativeQuery = true)
     String findDiscriminatorValueById(@Param("id") Long id);
 }

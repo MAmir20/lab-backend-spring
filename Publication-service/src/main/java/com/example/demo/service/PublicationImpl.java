@@ -41,7 +41,7 @@ public class PublicationImpl implements IPublicationService {
 	}
 
 	public List<Publication> findByTitre(String titre) {
-		return publicationRepository.findByTitreStartingWith(titre);
+		return publicationRepository.findByTitleStartingWith(titre);
 	}
 
 	public List<Publication> findByLien(String lien) {
