@@ -5,15 +5,20 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.bean.OutilBean;
 import com.example.demo.bean.PublicationBean;
 import com.example.demo.entity.EnseignantChercheur;
 import com.example.demo.entity.Etudiant;
 import com.example.demo.entity.Membre;
+import com.example.demo.entity.Membre_Outil;
+import com.example.demo.entity.Membre_Outil_Id;
 import com.example.demo.entity.Membre_Pub_Id;
 import com.example.demo.entity.Membre_Publication;
+import com.example.demo.proxy.OutilProxyService;
 import com.example.demo.proxy.PublicationProxyService;
 import com.example.demo.repository.EnseignantRepository;
 import com.example.demo.repository.EtudiantRepository;
+import com.example.demo.repository.MembreOutilRepository;
 import com.example.demo.repository.MembrePubRepository;
 import com.example.demo.repository.MembreRepository;
 
@@ -25,9 +30,13 @@ public class MembreImpl implements IMembreService {
 	MembreRepository membreRepository;
 	EtudiantRepository etudiantRepository;
 	EnseignantRepository enseignantRepository;
+	
 	MembrePubRepository membrePubRepository;
 	PublicationProxyService publicationProxyService;
-
+	
+	MembreOutilRepository membreOutilRepository;
+	OutilProxyService outilProxyService;
+	
 	public Membre addMembre(Membre m) {
 		membreRepository.save(m);
 		return m;
@@ -91,18 +100,19 @@ public class MembreImpl implements IMembreService {
 	public void affecterauteurTopublication(Long idauteur, Long idpub) {
 		Membre mbr = membreRepository.findById(idauteur).get();
 		Membre_Publication mbs = new Membre_Publication();
-		mbs.setAuteur(mbr);
+		mbs.setMembre(mbr);
 		mbs.setId(new Membre_Pub_Id(idpub, idauteur));
 		membrePubRepository.save(mbs);
 	}
 
-	public List<PublicationBean> findPublicationparauteur(Long idauteur) {
+	public List<PublicationBean> findAllPublicationparauteur(Long idauteur) {
 		List<PublicationBean> pubs = new ArrayList<PublicationBean>();
-		List<Membre_Publication> idpubs = membrePubRepository.findpubId(idauteur);
+		List<Membre_Publication> idpubs = membrePubRepository.findPubsByMembreId(idauteur);
 		idpubs.forEach(s -> {
 			System.out.println(s);
 			pubs.add(publicationProxyService.findOnePublicationById(s.getId().getPublication_id()));
 		});
 		return pubs;
 	}
+	
 }

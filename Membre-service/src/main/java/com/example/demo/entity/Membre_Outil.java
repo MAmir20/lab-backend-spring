@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Membre_Publication {
+public class Membre_Outil {
 	@EmbeddedId
-	private Membre_Pub_Id id;
+	private Membre_Outil_Id id;
 	@ManyToOne
 	@MapsId("membre_id")
 	private Membre membre;

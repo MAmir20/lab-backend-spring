@@ -10,6 +10,6 @@ import com.example.demo.entity.Membre_Pub_Id;
 import com.example.demo.entity.Membre_Publication;
 
 public interface MembrePubRepository extends JpaRepository<Membre_Publication, Membre_Pub_Id> {
-	@Query("select m from Membre_Publication m where m.id.auteur_id=:x")
-	List<Membre_Publication> findpubId(@Param("x") Long autId);
+	@Query("select m from Membre_Publication m where m.id.membre_id=:x")
+	List<Membre_Publication> findPubsByMembreId(@Param("x") Long autId);
 }

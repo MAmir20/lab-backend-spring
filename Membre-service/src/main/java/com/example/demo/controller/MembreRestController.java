@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.bean.OutilBean;
 import com.example.demo.entity.EnseignantChercheur;
 import com.example.demo.entity.Etudiant;
 import com.example.demo.entity.Membre;
-import com.example.demo.proxy.PublicationProxyService;
+import com.example.demo.service.IMembreOutilService;
 import com.example.demo.service.IMembreService;
 
 import lombok.AllArgsConstructor;
@@ -25,14 +26,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class MembreRestController {
 	IMembreService membreService;
-	PublicationProxyService publicationProxyService;
-
-	@GetMapping(value = "/membres/fullmember/{id}")
-	public Membre findAFullMember(@PathVariable(name = "id") Long id) {
-		Membre mbr = membreService.findMembre(id);
-		mbr.setPubs(membreService.findPublicationparauteur(id));
-		return mbr;
-	}
+	IMembreOutilService membreOutilService;
 
 	@RequestMapping(value = "/membres", method = RequestMethod.GET)
 	public List<Membre> findMembres() {
@@ -80,4 +74,23 @@ public class MembreRestController {
 		p.setId(id);
 		return membreService.updateMembre(p);
 	}
+	
+	@GetMapping(value = "/membres/full")
+	public List<Membre> findAllFullMembers() {
+		List<Membre> mbrs = membreService.findAll();
+		for(Membre mbr : mbrs) {
+			mbr.setOutils(membreOutilService.findAllOutilparauteur(mbr.getId()));
+			mbr.setPubs(membreService.findAllPublicationparauteur(mbr.getId()));
+		}
+		return mbrs;
+	}
+	
+	@GetMapping(value = "/membres/{id}/full")
+	public Membre findAFullMember(@PathVariable(name = "id") Long id) {
+		Membre mbr = membreService.findMembre(id);
+		mbr.setOutils(membreOutilService.findAllOutilparauteur(id));
+		mbr.setPubs(membreService.findAllPublicationparauteur(id));
+		return mbr;
+	}
+	
 }
