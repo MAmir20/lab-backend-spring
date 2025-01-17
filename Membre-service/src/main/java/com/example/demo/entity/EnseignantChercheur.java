@@ -7,15 +7,16 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity @DiscriminatorValue("Professor")
 @NoArgsConstructor @AllArgsConstructor
+@Data
 public class EnseignantChercheur extends Membre {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	@NonNull
 	private String grade;
 	@NonNull
