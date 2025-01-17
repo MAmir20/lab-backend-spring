@@ -10,7 +10,7 @@ public interface IMembreOutilService {
 	public void affectOutilToAuteur(Long idauteur, Long idoutil);
 	public List<OutilBean> findAllOutilparauteur (Long idauteur);
 	public OutilMembreResponse createOutil(OutilMembreRequest outil);
-	public String deleteOutil(Long idOutil);
+	public boolean deleteOutil(Long idOutil);
 	public OutilMembreResponse findOutilFullByOutilId(Long idOutil);
 	public List<OutilMembreResponse> findOutilsFullByMbrId(Long idmbr);
 	public List<OutilMembreResponse> findAllOutilsFull();

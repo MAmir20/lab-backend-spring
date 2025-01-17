@@ -10,7 +10,7 @@ public interface IMembrePublicationService {
 	public void affectPublicationToAuteur(Long idauteur, Long idpub);
 	public List<PublicationBean> findAllPublicationByAuteur (Long idauteur);
 	public PublicationMembreResponse createPublication(PublicationMembreRequest pub);
-	public String deletePublication(Long idpub);
+	public boolean deletePublication(Long idpub);
 	public PublicationMembreResponse findPublicationFullByPubId(Long idpub);
 	public List<PublicationMembreResponse> findPublicationsFullByMbrId(Long idmbr);
 	public List<PublicationMembreResponse> findAllPublicationsFull();

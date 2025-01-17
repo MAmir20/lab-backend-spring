@@ -57,14 +57,14 @@ public class MembreOutilImpl implements IMembreOutilService {
 	}
 	
 	@Override
-	public String deleteOutil(Long idoutil) {
+	public boolean deleteOutil(Long idoutil) {
 		List<Membre_Outil> mbr_outils = membreOutilRepository.findOutilsByOutilId(idoutil);
 		if(!mbr_outils.isEmpty()) {
 			membreOutilRepository.deleteAll(mbr_outils);
 			outilProxyService.deleteOutil(idoutil);
-			return "Deleted Successfully";
+			return true;
 		}
-		return "ERROR: This member does not own this tool";
+		return false;
 	}
 
 	@Override

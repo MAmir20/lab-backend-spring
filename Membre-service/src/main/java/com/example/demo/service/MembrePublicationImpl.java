@@ -61,14 +61,14 @@ public class MembrePublicationImpl implements IMembrePublicationService {
 	}
 
 	@Override
-	public String deletePublication(Long idpub) {
+	public boolean deletePublication(Long idpub) {
 		List<Membre_Publication> mbr_pubs = membrePubRepository.findPubsByPubId(idpub);
 		if(!mbr_pubs.isEmpty()) {
 			membrePubRepository.deleteAll(mbr_pubs);
 			publicationProxyService.deletePublication(idpub);
-			return "Deleted Successfully";
+			return true;
 		}
-		return "ERROR: This member does not own this publication";
+		return false;
 	}
 
 	@Override

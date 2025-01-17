@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,8 +51,11 @@ public class MembrePubController {
 	}
 	
 	@DeleteMapping(value = "/membres/publications/{p_id}")
-	public String deletePublication(@PathVariable Long p_id) {
-		return membrePublicationService.deletePublication(p_id);
+	public ResponseEntity<Void> deletePublication(@PathVariable Long p_id) {
+		if(membrePublicationService.deletePublication(p_id)) {
+			return ResponseEntity.ok().build();
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 	
 	/* ----------------------------------------- */

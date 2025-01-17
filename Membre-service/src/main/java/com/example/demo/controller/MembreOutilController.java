@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,8 +51,11 @@ public class MembreOutilController {
 	}
 
 	@DeleteMapping(value = "/membres/outils/{o_id}")
-	public String deleteOutil(@PathVariable Long o_id) {
-		return membreOutilService.deleteOutil(o_id);
+	public ResponseEntity<Void> deleteOutil(@PathVariable Long o_id) {
+		if(membreOutilService.deleteOutil(o_id)) {
+			return ResponseEntity.ok().build();
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 
 	/* ----------------------------------------- */
