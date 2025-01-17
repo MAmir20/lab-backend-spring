@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,15 +45,26 @@ public class MembrePubController {
 		return membrePublicationService.createPublication(pub);
 	}
 	
-	@DeleteMapping(value = "/membres/{m_id}/publications/{p_id}")
-	public String deletePublication(@PathVariable Long m_id, @PathVariable Long p_id) {
-		return membrePublicationService.deletePublication(m_id, p_id);
+	@PutMapping(value = "/membres/publications/{id}")
+	public PublicationMembreResponse updatePublication(@PathVariable Long id, @RequestBody PublicationMembreRequest pub){
+		return membrePublicationService.updatePublication(id, pub);
+	}
+	
+	@DeleteMapping(value = "/membres/publications/{p_id}")
+	public String deletePublication(@PathVariable Long p_id) {
+		return membrePublicationService.deletePublication(p_id);
 	}
 	
 	@GetMapping(value = "/membres/publications/{id}/full")
-	public PublicationMembreResponse findPublicationFull(@PathVariable Long id) {
-		return membrePublicationService.findPublicationFull(id);
+	public PublicationMembreResponse findPublicationFullByPubId(@PathVariable Long id) {
+		return membrePublicationService.findPublicationFullByPubId(id);
 	}
+	
+	@GetMapping(value = "/membres/{id}/publications/full")
+	public List<PublicationMembreResponse> findPublicationsFullByMbrId(@PathVariable Long id) {
+		return membrePublicationService.findPublicationsFullByMbrId(id);
+	}
+	
 	@GetMapping(value = "/membres/publications/full")
 	public List<PublicationMembreResponse> findPublicationsFull() {
 		return membrePublicationService.findAllPublicationsFull();

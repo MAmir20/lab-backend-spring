@@ -63,22 +63,24 @@ public class MembrePublicationImpl implements IMembrePublicationService {
 			if(membreRepository.existsById(m_id)) 
 				this.affectPublicationToAuteur(m_id, p.getId());
 		}
-		return this.findPublicationFull(p.getId());
+		return this.findPublicationFullByPubId(p.getId());
 	}
 
 	@Override
-	public String deletePublication(Long idMembre, Long idpub) {
-		Optional<Membre_Publication> mbr_pub = membrePubRepository.findById(new Membre_Pub_Id(idpub, idMembre));
-		if(!mbr_pub.isEmpty()) {
+	public String deletePublication(Long idpub) {
+		List<Membre_Publication> mbr_pubs = membrePubRepository.findPubsByPubId(idpub);
+		if(!mbr_pubs.isEmpty()) {
+			for(Membre_Publication mbr_pub : mbr_pubs) {
+				membrePubRepository.delete(mbr_pub);
+			}
 			publicationProxyService.deletePublication(idpub);
-			membrePubRepository.delete(mbr_pub.get());
 			return "Deleted Successfully";
 		}
 		return "ERROR: This member does not own this publication";
 	}
 
 	@Override
-	public PublicationMembreResponse findPublicationFull(Long idpub) {
+	public PublicationMembreResponse findPublicationFullByPubId(Long idpub) {
 		PublicationBean pub = publicationProxyService.findOnePublicationById(idpub);
 		PublicationMembreResponse out = PublicationMembreResponse.builder().id(idpub)
 				.type(pub.getType())
@@ -95,14 +97,41 @@ public class MembrePublicationImpl implements IMembrePublicationService {
 		out.setMembres(mbrs);
 		return out;
 	}
+	
+	@Override
+	public List<PublicationMembreResponse> findPublicationsFullByMbrId(Long idmbr) {
+		List<Membre_Publication> mbr_pubs = membrePubRepository.findPubsByMembreId(idmbr);
+		List<PublicationMembreResponse> pubsFull = new ArrayList<PublicationMembreResponse>();
+		for(Membre_Publication mbr_pub : mbr_pubs) {
+			pubsFull.add(this.findPublicationFullByPubId(mbr_pub.getId().getPublication_id()));
+		}
+		return pubsFull;
+	}
 
 	@Override
 	public List<PublicationMembreResponse> findAllPublicationsFull() {
 		List<Long> pub_ids = membrePubRepository.findDistinctPublicationIds();
 		List<PublicationMembreResponse> pubsFull = new ArrayList<PublicationMembreResponse>();
 		for(Long pub_id : pub_ids) {
-			pubsFull.add(this.findPublicationFull(pub_id));
+			pubsFull.add(this.findPublicationFullByPubId(pub_id));
 		}
 		return pubsFull;
+	}
+
+	@Override
+	public PublicationMembreResponse updatePublication(Long id, PublicationMembreRequest pub) {
+		PublicationBean p = publicationProxyService.findOnePublicationById(id);
+		p.setDate(pub.getDate());
+		p.setLien(pub.getLien());
+		p.setSourcepdf(pub.getSourcepdf());
+		p.setTitle(pub.getTitle());
+		p.setType(pub.getType());
+		publicationProxyService.updatePublication(id, p);
+		List<Membre_Publication> mbr_pubs = membrePubRepository.findPubsByPubId(id);
+		membrePubRepository.deleteAll(mbr_pubs);
+		for(Long m_id : pub.getMembres()) {
+			this.affectPublicationToAuteur(m_id, id);
+		}
+		return this.findPublicationFullByPubId(id);
 	}
 }
