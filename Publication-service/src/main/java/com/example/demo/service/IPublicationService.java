@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.demo.entity.Publication;
 
@@ -13,8 +14,9 @@ public interface IPublicationService {
 	public List<Publication> findAll();
 	
 	//Filtrage par propriété
-	public Publication findByType(String type);
+	public List<Publication> findByType(String type);
 	public List<Publication> findByTitre(String titre);
 	public List<Publication> findByLien(String lien);
-	
+	public List<Publication> filterPublications(Map<String, String> filters);
+	public Map<String, Long> countPublicationsByTypes();
 }

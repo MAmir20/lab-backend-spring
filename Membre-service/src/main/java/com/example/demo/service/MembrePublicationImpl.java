@@ -2,22 +2,16 @@ package com.example.demo.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.bean.OutilBean;
 import com.example.demo.bean.PublicationBean;
 import com.example.demo.dto.PublicationMembreRequest;
 import com.example.demo.dto.PublicationMembreResponse;
 import com.example.demo.entity.Membre;
-import com.example.demo.entity.Membre_Outil;
-import com.example.demo.entity.Membre_Outil_Id;
 import com.example.demo.entity.Membre_Pub_Id;
 import com.example.demo.entity.Membre_Publication;
-import com.example.demo.proxy.OutilProxyService;
 import com.example.demo.proxy.PublicationProxyService;
-import com.example.demo.repository.MembreOutilRepository;
 import com.example.demo.repository.MembrePubRepository;
 import com.example.demo.repository.MembreRepository;
 
@@ -70,9 +64,7 @@ public class MembrePublicationImpl implements IMembrePublicationService {
 	public String deletePublication(Long idpub) {
 		List<Membre_Publication> mbr_pubs = membrePubRepository.findPubsByPubId(idpub);
 		if(!mbr_pubs.isEmpty()) {
-			for(Membre_Publication mbr_pub : mbr_pubs) {
-				membrePubRepository.delete(mbr_pub);
-			}
+			membrePubRepository.deleteAll(mbr_pubs);
 			publicationProxyService.deletePublication(idpub);
 			return "Deleted Successfully";
 		}

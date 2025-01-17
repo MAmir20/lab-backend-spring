@@ -10,12 +10,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.bean.OutilBean;
 import com.example.demo.bean.PublicationBean;
 import com.example.demo.dto.PublicationMembreRequest;
 import com.example.demo.dto.PublicationMembreResponse;
 import com.example.demo.entity.Membre;
-import com.example.demo.service.IMembreOutilService;
 import com.example.demo.service.IMembrePublicationService;
 import com.example.demo.service.IMembreService;
 
@@ -54,6 +52,8 @@ public class MembrePubController {
 	public String deletePublication(@PathVariable Long p_id) {
 		return membrePublicationService.deletePublication(p_id);
 	}
+	
+	/* ----------------------------------------- */
 	
 	@GetMapping(value = "/membres/publications/{id}/full")
 	public PublicationMembreResponse findPublicationFullByPubId(@PathVariable Long id) {

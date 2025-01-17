@@ -12,4 +12,13 @@ import com.example.demo.entity.Membre_Outil_Id;
 public interface MembreOutilRepository extends JpaRepository<Membre_Outil, Membre_Outil_Id> {
 	@Query("select m from Membre_Outil m where m.id.membre_id=:x")
 	List<Membre_Outil> findOutilsByMembreId(@Param("x") Long autId);
+
+	@Query("select m from Membre_Outil m where m.id.outil_id=:x")
+	List<Membre_Outil> findOutilsByOutilId(@Param("x") Long outilId);
+	
+	@Query("SELECT DISTINCT(m.id.membre_id) FROM Membre_Outil m")
+	List<Long> findDistinctMembreIds();
+
+	@Query("SELECT DISTINCT(m.id.outil_id) FROM Membre_Outil m")
+	List<Long> findDistinctOutilIds();
 }

@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -36,7 +37,7 @@ public class PublicationImpl implements IPublicationService {
 		return publicationRepository.findAll();
 	}
 
-	public Publication findByType(String type) {
+	public List<Publication> findByType(String type) {
 		return publicationRepository.findByType(type);
 	}
 
@@ -46,5 +47,24 @@ public class PublicationImpl implements IPublicationService {
 
 	public List<Publication> findByLien(String lien) {
 		return publicationRepository.findByLien(lien);
+	}
+
+	@Override
+	public List<Publication> filterPublications(Map<String, String> filters) {
+		if (filters.containsKey("type")) {
+            String type = filters.get("type");
+            // Use the repository to filter publications by type
+            return publicationRepository.findByType(type);
+        }
+		return null;
+	}
+	
+	public Map<String, Long> countPublicationsByTypes(){
+		//Map<String, Long> out = new Map<String, Long>;
+		//List<String> types = publicationRepository.findDistinctTypes();
+		//for(String type : types){
+			
+		//}
+		return null;
 	}
 }
