@@ -1,21 +1,14 @@
 package com.example.demo.service;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.bean.OutilBean;
-import com.example.demo.bean.PublicationBean;
 import com.example.demo.entity.EnseignantChercheur;
 import com.example.demo.entity.Etudiant;
 import com.example.demo.entity.Membre;
-import com.example.demo.entity.Membre_Outil;
-import com.example.demo.entity.Membre_Outil_Id;
-import com.example.demo.entity.Membre_Pub_Id;
-import com.example.demo.entity.Membre_Publication;
 import com.example.demo.proxy.OutilProxyService;
 import com.example.demo.proxy.PublicationProxyService;
 import com.example.demo.repository.EnseignantRepository;
@@ -119,5 +112,13 @@ public class MembreImpl implements IMembreService {
 		EnseignantChercheur ens = enseignantRepository.findById(idEns).get();
 		return etudiantRepository.findByEncadrant(ens);
 	}
+	
+	public Membre authenticate(String email) throws Exception {
+        Membre membre = membreRepository.findByEmail(email);
+        if (membre == null) {
+            throw new Exception("Unauthorized: Email not found");
+        }
+        return membre;
+    }
 	
 }

@@ -33,4 +33,6 @@ public interface IMembreService {
 	
 	//afficher les etudiant encadré par l'encadrant specifie
 	public List<Etudiant> afficherEtudiantsEncadres(Long idEns);
+	
+	public Membre authenticate(String email) throws Exception;
 }

@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -104,5 +106,18 @@ public class MembreRestController {
 		mbr.setEvents(membreEventService.findAllEventparauteur(id));
 		return mbr;
 	}
+	
+	@PostMapping(value = "/membres/auth")
+	public ResponseEntity<?> authenticate(@RequestParam String email) {
+        try {
+            Membre membre = membreService.authenticate(email);
+
+            // Return the Membre object in the response
+            return ResponseEntity.ok(membre);
+        } catch (Exception ex) {
+            // Return an error response if unauthorized
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
+        }
+    }
 	
 }

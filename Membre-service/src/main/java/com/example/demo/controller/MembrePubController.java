@@ -49,8 +49,12 @@ public class MembrePubController {
 		return membrePublicationService.deletePublication(m_id, p_id);
 	}
 	
-	@GetMapping(value = "/membres/publications/{id}")
-	public PublicationMembreResponse findMembresGroupByPublication(@PathVariable Long id) {
-		return membrePublicationService.findMembreGroupByPublication(id);
+	@GetMapping(value = "/membres/publications/{id}/full")
+	public PublicationMembreResponse findPublicationFull(@PathVariable Long id) {
+		return membrePublicationService.findPublicationFull(id);
+	}
+	@GetMapping(value = "/membres/publications/full")
+	public List<PublicationMembreResponse> findPublicationsFull() {
+		return membrePublicationService.findAllPublicationsFull();
 	}
 }

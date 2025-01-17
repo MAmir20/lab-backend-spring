@@ -63,7 +63,7 @@ public class MembrePublicationImpl implements IMembrePublicationService {
 			if(membreRepository.existsById(m_id)) 
 				this.affectPublicationToAuteur(m_id, p.getId());
 		}
-		return this.findMembreGroupByPublication(p.getId());
+		return this.findPublicationFull(p.getId());
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class MembrePublicationImpl implements IMembrePublicationService {
 	}
 
 	@Override
-	public PublicationMembreResponse findMembreGroupByPublication(Long idpub) {
+	public PublicationMembreResponse findPublicationFull(Long idpub) {
 		PublicationBean pub = publicationProxyService.findOnePublicationById(idpub);
 		PublicationMembreResponse out = PublicationMembreResponse.builder().id(idpub)
 				.type(pub.getType())
@@ -94,5 +94,15 @@ public class MembrePublicationImpl implements IMembrePublicationService {
 		});
 		out.setMembres(mbrs);
 		return out;
+	}
+
+	@Override
+	public List<PublicationMembreResponse> findAllPublicationsFull() {
+		List<Long> pub_ids = membrePubRepository.findDistinctPublicationIds();
+		List<PublicationMembreResponse> pubsFull = new ArrayList<PublicationMembreResponse>();
+		for(Long pub_id : pub_ids) {
+			pubsFull.add(this.findPublicationFull(pub_id));
+		}
+		return pubsFull;
 	}
 }

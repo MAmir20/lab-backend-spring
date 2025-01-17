@@ -13,5 +13,6 @@ public interface IMembrePublicationService {
 	public List<PublicationBean> findAllPublicationByAuteur (Long idauteur);
 	public PublicationMembreResponse createPublication(PublicationMembreRequest pub);
 	public String deletePublication(Long idMembre, Long idpub);
-	public PublicationMembreResponse findMembreGroupByPublication(Long idpub); 
+	public PublicationMembreResponse findPublicationFull(Long idpub);
+	public List<PublicationMembreResponse> findAllPublicationsFull(); 
 }
