@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.bean.OutilBean;
 import com.example.demo.bean.PublicationBean;
+import com.example.demo.dto.PublicationMembreRequest;
+import com.example.demo.dto.PublicationMembreResponse;
 import com.example.demo.entity.Membre;
 import com.example.demo.service.IMembreOutilService;
 import com.example.demo.service.IMembrePublicationService;
@@ -37,13 +39,18 @@ public class MembrePubController {
 		return membrePublicationService.findAllPublicationByAuteur(id);
 	}
 	
-	@PostMapping(value = "/membres/{id}/publications")
-	public List<PublicationBean> createPublication(@PathVariable Long id, @RequestBody PublicationBean pub){
-		return membrePublicationService.createPublication(id, pub);
+	@PostMapping(value = "/membres/publications")
+	public PublicationMembreResponse createPublication(@RequestBody PublicationMembreRequest pub){
+		return membrePublicationService.createPublication(pub);
 	}
 	
 	@DeleteMapping(value = "/membres/{m_id}/publications/{p_id}")
 	public String deletePublication(@PathVariable Long m_id, @PathVariable Long p_id) {
 		return membrePublicationService.deletePublication(m_id, p_id);
+	}
+	
+	@GetMapping(value = "/membres/publications/{id}")
+	public PublicationMembreResponse findMembresGroupByPublication(@PathVariable Long id) {
+		return membrePublicationService.findMembreGroupByPublication(id);
 	}
 }

@@ -119,23 +119,5 @@ public class MembreImpl implements IMembreService {
 		EnseignantChercheur ens = enseignantRepository.findById(idEns).get();
 		return etudiantRepository.findByEncadrant(ens);
 	}
-
-	public void affecterauteurTopublication(Long idauteur, Long idpub) {
-		Membre mbr = membreRepository.findById(idauteur).get();
-		Membre_Publication mbs = new Membre_Publication();
-		mbs.setMembre(mbr);
-		mbs.setId(new Membre_Pub_Id(idpub, idauteur));
-		membrePubRepository.save(mbs);
-	}
-
-	public List<PublicationBean> findAllPublicationparauteur(Long idauteur) {
-		List<PublicationBean> pubs = new ArrayList<PublicationBean>();
-		List<Membre_Publication> idpubs = membrePubRepository.findPubsByMembreId(idauteur);
-		idpubs.forEach(s -> {
-			System.out.println(s);
-			pubs.add(publicationProxyService.findOnePublicationById(s.getId().getPublication_id()));
-		});
-		return pubs;
-	}
 	
 }

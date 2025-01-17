@@ -16,7 +16,7 @@ public interface PublicationProxyService {
 	public PublicationBean findOnePublicationById(@PathVariable(name = "id") Long id);
 	
 	@PostMapping("/publications")
-	public PublicationBean addPublication(@RequestBody PublicationBean outil);
+	public PublicationBean addPublication(@RequestBody PublicationBean pub);
 	
 	@DeleteMapping("/publications/{id}")
 	public void deletePublication(@PathVariable(name = "id") Long id);

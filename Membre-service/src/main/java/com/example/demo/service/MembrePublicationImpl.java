@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.bean.OutilBean;
 import com.example.demo.bean.PublicationBean;
+import com.example.demo.dto.PublicationMembreRequest;
+import com.example.demo.dto.PublicationMembreResponse;
 import com.example.demo.entity.Membre;
 import com.example.demo.entity.Membre_Outil;
 import com.example.demo.entity.Membre_Outil_Id;
@@ -49,11 +51,19 @@ public class MembrePublicationImpl implements IMembrePublicationService {
 	}
 	
 	@Override
-	public List<PublicationBean> createPublication(Long idMembre, PublicationBean pub) {
-		Membre mbr = membreRepository.findById(idMembre).get();
-		PublicationBean p = publicationProxyService.addPublication(pub);
-		membrePubRepository.save(new Membre_Publication(new Membre_Pub_Id(mbr.getId(), p.getId()), mbr));
-		return this.findAllPublicationByAuteur(idMembre);
+	public PublicationMembreResponse createPublication(PublicationMembreRequest pub) {
+		PublicationBean p = PublicationBean.builder().type(pub.getType())
+				.title(pub.getTitle())
+				.lien(pub.getLien())
+				.date(pub.getDate())
+				.sourcepdf(pub.getSourcepdf())
+				.build();
+		p = publicationProxyService.addPublication(p);
+		for(Long m_id : pub.getMembres()) {
+			if(membreRepository.existsById(m_id)) 
+				this.affectPublicationToAuteur(m_id, p.getId());
+		}
+		return this.findMembreGroupByPublication(p.getId());
 	}
 
 	@Override
@@ -66,6 +76,23 @@ public class MembrePublicationImpl implements IMembrePublicationService {
 		}
 		return "ERROR: This member does not own this publication";
 	}
-	
-	
+
+	@Override
+	public PublicationMembreResponse findMembreGroupByPublication(Long idpub) {
+		PublicationBean pub = publicationProxyService.findOnePublicationById(idpub);
+		PublicationMembreResponse out = PublicationMembreResponse.builder().id(idpub)
+				.type(pub.getType())
+				.title(pub.getTitle())
+				.lien(pub.getLien())
+				.date(pub.getDate())
+				.sourcepdf(pub.getSourcepdf())
+				.build();
+		List<Membre_Publication> pub_mbrs = membrePubRepository.findPubsByPubId(idpub);
+		List<Membre> mbrs = new ArrayList<Membre>();
+		pub_mbrs.forEach(s -> {
+			mbrs.add(membreRepository.findById(s.getId().getMembre_id()).get());
+		});
+		out.setMembres(mbrs);
+		return out;
+	}
 }
