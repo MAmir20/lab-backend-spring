@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,12 +60,14 @@ public class PublicationImpl implements IPublicationService {
 		return null;
 	}
 	
-	public Map<String, Long> countPublicationsByTypes(){
-		//Map<String, Long> out = new Map<String, Long>;
-		//List<String> types = publicationRepository.findDistinctTypes();
-		//for(String type : types){
-			
-		//}
-		return null;
-	}
+	public Map<String, Long> countPublicationsByTypes() {
+        List<Object[]> results = publicationRepository.countPublicationsByType();
+        Map<String, Long> out = new HashMap<String, Long>();
+        for (Object[] result : results) {
+            String type = (String) result[0]; // Type is at index 0
+            Long count = (Long) result[1];    // Count is at index 1
+            out.put(type, count);
+        }
+        return out;
+    }
 }
