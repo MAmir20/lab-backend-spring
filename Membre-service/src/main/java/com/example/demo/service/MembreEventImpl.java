@@ -68,6 +68,7 @@ public class MembreEventImpl implements IMembreEventService {
 		EventBean event = eventProxyService.findOneEventById(idEvent);
 		EventMembreResponse out = EventMembreResponse.builder().id(idEvent)
 				.title(event.getTitle())
+				.dateDebut(event.getDateDebut())
 				.dateFin(event.getDateFin())
 				.lieu(event.getLieu())
 				.build();
