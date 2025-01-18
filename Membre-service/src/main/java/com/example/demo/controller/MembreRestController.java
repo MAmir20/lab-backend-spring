@@ -120,4 +120,10 @@ public class MembreRestController {
         }
     }
 	
+	@GetMapping(value = "/membres/countByDiploma")
+    public ResponseEntity<Map<String, Long>> getStudentsCountByDiploma() {
+        Map<String, Long> counts = membreService.countStudentsByDiplomas();
+        return ResponseEntity.ok(counts);
+    }
+	
 }

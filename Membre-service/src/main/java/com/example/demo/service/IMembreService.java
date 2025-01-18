@@ -35,4 +35,5 @@ public interface IMembreService {
 	public List<Etudiant> afficherEtudiantsEncadres(Long idEns);
 	
 	public Membre authenticate(String email) throws Exception;
+	public Map<String, Long> countStudentsByDiplomas();
 }

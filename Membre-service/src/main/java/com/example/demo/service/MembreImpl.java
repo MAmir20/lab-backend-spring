@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -119,6 +120,18 @@ public class MembreImpl implements IMembreService {
             throw new Exception("Unauthorized: Email not found");
         }
         return membre;
+    }
+
+	@Override
+	public Map<String, Long> countStudentsByDiplomas() {
+        List<Object[]> results = etudiantRepository.countStudentsByDiplomas();
+        Map<String, Long> out = new HashMap<String, Long>();
+        for (Object[] result : results) {
+            String type = (String) result[0]; // Type is at index 0
+            Long count = (Long) result[1];    // Count is at index 1
+            out.put(type, count);
+        }
+        return out;
     }
 	
 }
