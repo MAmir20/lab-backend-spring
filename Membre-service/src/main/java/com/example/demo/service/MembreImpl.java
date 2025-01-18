@@ -133,5 +133,17 @@ public class MembreImpl implements IMembreService {
         }
         return out;
     }
+
+	@Override
+	public Map<String, Long> countProfessorsByEstablishments() {
+		List<Object[]> results = enseignantRepository.countProfessorsByEstablishments();
+        Map<String, Long> out = new HashMap<String, Long>();
+        for (Object[] result : results) {
+            String type = (String) result[0]; // Type is at index 0
+            Long count = (Long) result[1];    // Count is at index 1
+            out.put(type, count);
+        }
+        return out;
+	}
 	
 }

@@ -36,4 +36,5 @@ public interface IMembreService {
 	
 	public Membre authenticate(String email) throws Exception;
 	public Map<String, Long> countStudentsByDiplomas();
+	public Map<String, Long> countProfessorsByEstablishments();
 }

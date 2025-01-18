@@ -126,4 +126,10 @@ public class MembreRestController {
         return ResponseEntity.ok(counts);
     }
 	
+	@GetMapping(value = "/membres/countByEstablishment")
+    public ResponseEntity<Map<String, Long>> getProfessorsCountByEstablishment() {
+        Map<String, Long> counts = membreService.countProfessorsByEstablishments();
+        return ResponseEntity.ok(counts);
+    }
+	
 }
