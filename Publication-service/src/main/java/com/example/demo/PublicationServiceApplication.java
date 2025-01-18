@@ -29,14 +29,55 @@ public class PublicationServiceApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		configuration.exposeIdsFor(Publication.class);
 		Publication pub1 = Publication.builder()
-				.type("article")
-				.title("test")
+				.type("Article")
+				.title("test1")
+				.lien("www.example.com")
+				.date(new Date())
+				.sourcepdf("file.pdf")
+				.build();
+		Publication pub2 = Publication.builder()
+				.type("Research")
+				.title("test2")
+				.lien("www.example.com")
+				.date(new Date())
+				.sourcepdf("file.pdf")
+				.build();
+		Publication pub3 = Publication.builder()
+				.type("Conference Paper")
+				.title("test3")
+				.lien("www.example.com")
+				.date(new Date())
+				.sourcepdf("file.pdf")
+				.build();
+		Publication pub4 = Publication.builder()
+				.type("Article")
+				.title("test4")
+				.lien("www.example.com")
+				.date(new Date())
+				.sourcepdf("file.pdf")
+				.build();
+		Publication pub5 = Publication.builder()
+				.type("Research")
+				.title("test5")
+				.lien("www.example.com")
+				.date(new Date())
+				.sourcepdf("file.pdf")
+				.build();
+		Publication pub6 = Publication.builder()
+				.type("Conference Paper")
+				.title("test6")
 				.lien("www.example.com")
 				.date(new Date())
 				.sourcepdf("file.pdf")
 				.build();
 		
 		pub1 = publicationService.addPublication(pub1);
+		pub2 = publicationService.addPublication(pub2);
+		pub3 = publicationService.addPublication(pub3);
+		pub4 = publicationService.addPublication(pub4);
+		pub5 = publicationService.addPublication(pub5);
+		pub6 = publicationService.addPublication(pub6);
+		
 	}
 	
 

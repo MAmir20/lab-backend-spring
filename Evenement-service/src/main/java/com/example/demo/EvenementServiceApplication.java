@@ -24,14 +24,46 @@ public class EvenementServiceApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Evenement evt = Evenement.builder()
-				.title("test")
-				.dateDebut(new Date())
-				.dateFin(new Date())
-				.lieu("Sfax")
-				.build();
-		
-		evt = evenementService.addEvenement(evt);
+		// Create and save multiple Evenement objects
+		Evenement evt1 = Evenement.builder()
+		    .title("Event 1")
+		    .dateDebut(new Date())
+		    .dateFin(new Date())
+		    .lieu("Sfax")
+		    .build();
+		evenementService.addEvenement(evt1);
+
+		Evenement evt2 = Evenement.builder()
+		    .title("Event 2")
+		    .dateDebut(new Date())
+		    .dateFin(new Date())
+		    .lieu("Tunis")
+		    .build();
+		evenementService.addEvenement(evt2);
+
+		Evenement evt3 = Evenement.builder()
+		    .title("Event 3")
+		    .dateDebut(new Date())
+		    .dateFin(new Date())
+		    .lieu("Sousse")
+		    .build();
+		evenementService.addEvenement(evt3);
+
+		Evenement evt4 = Evenement.builder()
+		    .title("Event 4")
+		    .dateDebut(new Date())
+		    .dateFin(new Date())
+		    .lieu("Gabes")
+		    .build();
+		evenementService.addEvenement(evt4);
+
+		Evenement evt5 = Evenement.builder()
+		    .title("Event 5")
+		    .dateDebut(new Date())
+		    .dateFin(new Date())
+		    .lieu("Sfax")
+		    .build();
+		evenementService.addEvenement(evt5);
 	}
 	
 
