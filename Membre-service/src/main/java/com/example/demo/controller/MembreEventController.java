@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.bean.EventBean;
-import com.example.demo.bean.OutilBean;
+import com.example.demo.dto.EventMembreResponse;
 import com.example.demo.entity.Membre;
 import com.example.demo.service.IMembreEventService;
 import com.example.demo.service.IMembreService;
@@ -41,8 +43,28 @@ public class MembreEventController {
 		return membreEventService.createEvent(id, event);
 	}
 	
-	@DeleteMapping(value = "/membres/{m_id}/events/{e_id}")
-	public String deleteOutil(@PathVariable Long m_id, @PathVariable Long e_id) {
-		return membreEventService.deleteEvent(m_id, e_id);
+	@DeleteMapping(value = "/membres/events/{o_id}")
+	public ResponseEntity<Void> deleteEvent(@PathVariable Long o_id) {
+		if(membreEventService.deleteEvent(o_id)) {
+			return ResponseEntity.ok().build();
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	}
+
+	/* ----------------------------------------- */
+
+	@GetMapping(value = "/membres/events/{id}/full")
+	public EventMembreResponse findEventFullByEventId(@PathVariable Long id) {
+		return membreEventService.findEventFullByEventId(id);
+	}
+
+	@GetMapping(value = "/membres/{id}/events/full")
+	public List<EventMembreResponse> findEventsFullByMbrId(@PathVariable Long id) {
+		return membreEventService.findEventsFullByMbrId(id);
+	}
+
+	@GetMapping(value = "/membres/events/full")
+	public List<EventMembreResponse> findEventsFull() {
+		return membreEventService.findAllEventsFull();
 	}
 }
